@@ -6,12 +6,11 @@ public class StudentList {
     public static void main(String[] args) {
 
         // Check arguments
+
         if (args[0].equals(Constant.showAll)) {
             System.out.println(Constant.loadingData);
             try {
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(
-                                new FileInputStream(Constant.StudentList)));
+                BufferedReader bufferedReader = readFile();
                 String studentNames = bufferedReader.readLine();
                 String names[] = studentNames.split(",");
                 for (String name : names) {
@@ -27,14 +26,12 @@ public class StudentList {
         else if (args[0].equals(Constant.showAl)) {
             System.out.println(Constant.loadingData);
             try {
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(
-                                new FileInputStream(Constant.StudentList)));
+                BufferedReader bufferedReader = readFile();
                 String line = bufferedReader.readLine();
                 System.out.println(line);
                 String i[] = line.split(",");
                 Random randomNumber = new Random();
-                int anyRandomNumber = randomNumber.nextInt();
+                int anyRandomNumber = randomNumber.nextInt(4);
                 System.out.println(i[anyRandomNumber]);
                 bufferedReader.close();
             } catch (Exception e) {
@@ -45,8 +42,7 @@ public class StudentList {
         else if (args[0].contains(Constant.addOperator)) {
             System.out.println(Constant.loadingData);
             try {
-                BufferedWriter bufferedReader = new BufferedWriter(
-                        new FileWriter("students.txt", true));
+                BufferedWriter bufferedReader = writeFile();
                 String t = args[0].substring(1);
                 Date date = new Date();
                 String dateFormal_d_m_y = "dd/mm/yyyy-hh:mm:ss a";
@@ -63,9 +59,7 @@ public class StudentList {
         else if (args[0].contains(Constant.questionMark)) {
             System.out.println(Constant.loadingData);
             try {
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(
-                                new FileInputStream(Constant.StudentList)));
+                BufferedReader bufferedReader = readFile();
                 String studentName = bufferedReader.readLine();
                 String names[] = studentName.split(",");
                 boolean done = false;
@@ -87,9 +81,7 @@ public class StudentList {
         else if (args[0].contains(Constant.showAlll)) {
             System.out.println(Constant.loadingData);
             try {
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(
-                                new FileInputStream(Constant.StudentList)));
+                BufferedReader bufferedReader = readFile();
                 String D = bufferedReader.readLine();
                 char Char[] = D.toCharArray();
                 boolean in_word = false;
@@ -115,5 +107,19 @@ public class StudentList {
         else {
             System.out.println("Wrong The input and try again\n");
         }
+
+    }
+
+    private static BufferedWriter writeFile() throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(
+            new FileWriter("students.txt", true));
+            return bufferedWriter;
+
+    }
+    private static BufferedReader readFile() throws FileNotFoundException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(
+                        new FileInputStream(Constant.StudentList)));
+        return bufferedReader;
     }
 }
